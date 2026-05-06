@@ -3,3 +3,4 @@ sqlalchemy==2.0.21
 psycopg2-binary==2.9.9
 python-dotenv==1.0.0
 pytest==7.4.2
+numpy>=1.23.2,<2.0  # Add this line - pandas 2.1.1 requires numpy 1.x
