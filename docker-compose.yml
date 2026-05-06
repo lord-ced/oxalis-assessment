@@ -1,0 +1,67 @@
+version: '3.8'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:15.4
+    container_name: sales_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  etl:
+    build:
+      context: ./etl
+      dockerfile: Dockerfile
+    container_name: sales_etl
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      SCHEMA_RAW: ${SCHEMA_RAW}
+      CSV_PATH: ${CSV_PATH}
+    volumes:
+      - ./data:/data
+      - ./etl:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: tail -f /dev/null
+
+  dbt:
+    build:
+      context: ./dbt
+      dockerfile: Dockerfile
+    container_name: sales_dbt
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      SCHEMA_STAGING: ${SCHEMA_STAGING}
+      SCHEMA_INTERMEDIATE: ${SCHEMA_INTERMEDIATE}
+      SCHEMA_MARTS: ${SCHEMA_MARTS}
+      DBT_PROFILES_DIR: ${DBT_PROFILES_DIR}
+      DBT_TARGET: ${DBT_TARGET}
+    volumes:
+      - ./dbt:/dbt
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: tail -f /dev/null

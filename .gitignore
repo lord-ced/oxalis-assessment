@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Package management
+*.egg-info/
+dist/
+build/
+
+# Environment variables (never commit secrets!)
+.env
+*.env
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# dbt
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+
+# MISC
+project_task_list.md

@@ -1,0 +1,52 @@
+date,store ID,PRODUCT_NAME, quantity,Price,customer_type,Payment Method,Transaction_ID, discount%,region
+2023-01-15,Store_005,Laptop Ultra X1,2,$1299.99,Regular,,TRX-45892,0%,West
+1/16/2023,STORE_005,Desktop PC Gaming,1,1499.99,Premium,Credit Card,TRX-45893,0.05,West
+2023/01/17,Store_005,Wireless Headphones ,3, $89.99,Regular,Credit Card,TRX-45894,0,West
+01-18-2023,store_005,Smartphone X12,,799.99,Premier,Debit,TRX-45895,10%,west
+2023-01-19,Store_005,Tablet Pro,0,649.99,Regular,Cash,TRX-45896,,WEST
+01/20/23,Store_005,USB-C Cable 2m,5,$19.99,Regular,Credit Card,,0%,West
+2023-01-21,StoreID_005,Wireless Mouse,2,$49.99,Regular,Debit Card,TRX-45898,0.00,West
+22-01-2023,Store-005,External SSD 1TB,1,159.99,Premium,,TRX-45899,5,West
+2023-01-23,Store 005,Laptop Stand,4,$29.99,Regular,Credit Card,TRX-45900,0,west
+1/24/2023,STORE_005,Wireless Keyboard,1,79.99,Premier,Credit Card,TRX-45901,15%,West
+2023-01-25,   Store_005  ,Power Bank 20000mAh,2,$59.99,Regular,Cash,TRX-45902,0%,west
+26-Jan-23,Store_005,Bluetooth Speaker,1,129.99,Regular,Credit Card,TRX-45903,,West
+2023/01/27,Store_005,"Monitor, 27-inch",1,349.99,Premium,Debit Card,TRX-45904,10%,West
+1/28/2023,Store-005,HDMI Cable,3,$14.99,Regular,,TRX-45905,0,West
+29.01.2023,Store_005,Wireless Charger,2,39.99,Regular,Cash,TRX-45906,0,West
+1/30/2023,StoreID_005,Airpods Pro,1,na,Premium,Credit Card,TRX-45907,0%,West
+2023-1-31,Store 005,Smart Watch Series 7,,299.99,RegularCustomer,Credit Card,TRX-45908,5%,North West
+2023-02-01,Store_006,Laptop Ultra X1,1,1299.99,Premium,Debit Card,TRX-46001,0,East
+02/02/2023,STORE_006,Desktop PC Gaming,2,$1499.99,Regular,Credit Card,TRX-46002,10,East
+2023/02/03,Store_006,Wireless Headphones,5,89.99,Regular,Cash,TRX-46003,,East
+2/4/2023,store_006,Smartphone X12,1,799.99,Premium,Apple Pay,TRX-46004,0%,east
+2023-02-05,Store_006,Tablet Pro,2,$649.99,Regular,Credit Card,TRX-46005,5,EAST
+6.2.2023,Store_006,USB-C Cable 2m,10,19.99,Regular,,TRX-46006,0%,East
+2023-02-07,StoreID_006,Wireless Mouse,3,$49.99,Premium,Debit Card,TRX-46007,10.0,East
+08-02-2023,Store-006,External SSD 1TB,1,159.99,Regular,Credit Card,,0%,East
+2023-02-09,Store 006,Laptop Stand,2,29.99,Regular,Cash,TRX-46009,0,east
+2/10/2023,STORE_006,Wireless Keyboard,4,$79.99,Premier,Credit Card,TRX-46010,5%,East
+2023-02-11,   Store_006  ,Power Bank 20000mAh,1,59.99,Regular,Debit Card,TRX-46011,0,East
+12-Feb-23,Store_006,Bluetooth Speaker,,129.99,Premium,Credit Card,TRX-46012,0%,East
+2023/02/13,Store_006,"Monitor, 27-inch",1,$349.99,Regular,Cash,TRX-46013,0%,East
+2/14/2023,Store-006,HDMI Cable,5,14.99,Regular,Credit Card,TRX-46014,0,east 
+15.02.2023,Store_006,Wireless Charger,3,39.99,Premier,Apple Pay,TRX-46015,10,East
+16/02/2023,StoreID_006,Airpods Pro,1,249.99,Regular,Credit Card,TRX-46016,0%,East
+2023-2-17,Store 006,Smart Watch Series 7,2,$299.99,Premium,Debit Card,TRX-46017,5%,North East
+2023-02-18,Store_007,Laptop Ultra X1,3,1299.99,Regular,Credit Card,TRX-47001,15,South
+02/19/2023,STORE_007,Desktop PC Gaming,1,$1499.99,Premium,Cash,TRX-47002,0%,South
+2023/02/20,Store_007,Wireless Headphones,4, 89.99,Regular,Credit Card,,0,South
+2/21/2023,store_007,Smartphone X12,2,799.99,Premier,Debit,TRX-47004,5%,south
+2023-02-22,Store_007,Tablet Pro,1,$649.99,Regular,Credit Card,TRX-47005,0,SOUTH
+23.2.2023,Store_007,USB-C Cable 2m,15,19.99,Regular,Cash,TRX-47006,0%,South
+2023-02-24,StoreID_007,Wireless Mouse,2,$49.99,Premium,Credit Card,TRX-47007,0.05,South
+25-02-2023,Store-007,External SSD 1TB,,159.99,Regular,Apple Pay,TRX-47008,0%,South
+2023-02-26,Store 007,Laptop Stand,3,29.99,Regular,Credit Card,TRX-47009,0,south
+2/27/2023,STORE_007,Wireless Keyboard,1,$79.99,Premier,Debit Card,TRX-47010,10%,South
+2023-02-28,   Store_007  ,Power Bank 20000mAh,2,59.99,Regular,Credit Card,TRX-47011,0,South
+01-Mar-23,Store_007,Bluetooth Speaker,1,Error,Premium,Cash,TRX-47012,0%,South
+2023/03/02,Store_007,"Monitor, 27-inch",1,$349.99,Regular,Credit Card,TRX-47013,5%,South
+3/3/2023,Store-007,HDMI Cable,6,14.99,Regular,Debit Card,TRX-47014,0,south
+04.03.2023,Store_007,Wireless Charger,,39.99,Premier,Credit Card,TRX-47015,0,South
+05/03/2023,StoreID_007,Airpods Pro,2,249.99,Regular,Cash,TRX-47016,0%,South
+2023-3-06,Store 007,Smart Watch Series 7,1,$299.99,Premium,Credit Card,TRX-47017,15%,South East
