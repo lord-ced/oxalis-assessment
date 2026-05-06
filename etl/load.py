@@ -26,6 +26,8 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 
+from transform import clean_column_names, COLUMN_MAPPING
+
 
 # Configure structured logging
 logging.basicConfig(
@@ -37,17 +39,17 @@ logger = logging.getLogger(__name__)
 
 
 # Expected columns in the source CSV (order doesn't matter, but names must match)
-EXPECTED_COLUMNS =[
+EXPECTED_COLUMNS = [
+    'transaction_id',
     'date',
-    'store ID',
-    'PRODUCT_NAME',
-    ' quantity',       # Note: leading space in source
-    'Price',
+    'store_id',
+    'region',
+    'product_category',
+    'quantity_sold',
+    'unit_price',
+    'discount',
     'customer_type',
-    'Payment Method',
-    'Transaction_ID',
-    ' discount%',      # Note: leading space in source
-    'region'
+    'payment_method'
 ]
 
 
@@ -240,16 +242,16 @@ def load_to_raw(df: pd.DataFrame, engine: Engine) -> None:
         # We don't define a primary key or constraints here - this is a landing zone
         create_table_sql = """
         CREATE TABLE IF NOT EXISTS raw.sales_raw (
+            transaction_id VARCHAR,
             date VARCHAR,
-            "store ID" VARCHAR,
-            "PRODUCT_NAME" VARCHAR,
-            " quantity" VARCHAR,
-            "Price" VARCHAR,
+            store_id VARCHAR,
+            region VARCHAR,
+            product_category VARCHAR,
+            quantity_sold VARCHAR,
+            unit_price VARCHAR,
+            discount VARCHAR,
             customer_type VARCHAR,
-            "Payment Method" VARCHAR,
-            "Transaction_ID" VARCHAR,
-            " discount%" VARCHAR,
-            region VARCHAR
+            payment_method VARCHAR
         )
         """
         conn.execute(text(create_table_sql))
@@ -330,6 +332,7 @@ def main():
         
         # Step 2: Read and validate CSV
         df = read_csv(args.csv_path)
+        df = clean_column_names(df)
         validate_structure(df)
         
         # Step 3: Connect to database

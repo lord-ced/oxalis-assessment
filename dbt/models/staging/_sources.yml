@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw sales data loaded by Python ETL
+    schema: raw
+    tables:
+      - name: sales_raw
+        description: Untransformed sales transactions with normalized column names
+        columns:
+          - name: date
+          - name: store_id
+          - name: product_category
+          - name: quantity
+          - name: price
+          - name: customer_type
+          - name: payment_method
+          - name: transaction_id
+          - name: discount_pct
+          - name: region

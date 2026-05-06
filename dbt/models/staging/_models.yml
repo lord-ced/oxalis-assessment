@@ -1,0 +1,75 @@
+version: 2
+
+models:
+  - name: stg_sales
+    description: |
+      Cleaned and typed sales transactions from raw data.
+      
+      This model handles all semantic cleaning:
+      - Normalizes store IDs to STORE_NNN format
+      - Parses dates from multiple formats (ISO, US slash, European dot)
+      - Standardizes region names (uppercase, underscores for spaces)
+      - Normalizes discount values to decimal [0,1] range
+      - Maps customer_type variants (RegularCustomer → Regular)
+      - Maps payment_method variants (Debit → Debit Card)
+      - Preserves NULLs where data is genuinely missing
+      
+      All rows from raw.sales_raw appear here, including rows with quality issues.
+      Filtering happens in downstream models.
+    columns:
+      - name: transaction_id
+        description: "Transaction identifier (allows NULLs)"
+        tests:
+          - unique:
+              config:
+                where: "transaction_id IS NOT NULL"
+      
+      - name: date
+        description: "Transaction date"
+        tests:
+          - not_null
+      
+      - name: store_id
+        description: "Normalized store identifier (STORE_NNN format)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['STORE_005', 'STORE_006', 'STORE_007']
+      
+      - name: region
+        description: "Geographic region (uppercase, underscores for spaces)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['WEST', 'EAST', 'SOUTH', 'NORTH_WEST', 'NORTH_EAST', 'SOUTH_EAST']
+      
+      - name: product_category
+        description: "Product name (preserved from source)"
+        tests:
+          - not_null
+      
+      - name: quantity_sold
+        description: "Quantity sold (integer, allows NULL)"
+      
+      - name: unit_price
+        description: "Price per unit (numeric, allows NULL)"
+      
+      - name: discount
+        description: "Discount rate as decimal [0,1]"
+      
+      - name: customer_type
+        description: "Customer segment"
+        tests:
+          - accepted_values:
+              values: ['Regular', 'Premium', 'Premier']
+              config:
+                where: "customer_type IS NOT NULL"
+      
+      - name: payment_method
+        description: "Payment method used"
+        tests:
+          - accepted_values:
+              values: ['Credit Card', 'Debit Card', 'Cash', 'Apple Pay']
+              config:
+                where: "payment_method IS NOT NULL"
+      

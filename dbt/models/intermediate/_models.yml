@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: int_sales_enriched
+    description: |
+      Sales transactions enriched with revenue calculations and date dimensions.
+      
+      This model adds business logic:
+      - Computes gross_revenue (quantity × price)
+      - Computes discount_amount (quantity × price × discount rate)
+      - Computes net_revenue (quantity × price × (1 - discount rate))
+      - Extracts date dimensions (year, month, day_of_week)
+      
+      Filters out rows where quantity_sold, unit_price, or date is NULL,
+      as these cannot participate in revenue math or daily aggregation.
+      Zero-quantity rows are preserved (revenue = 0).
+    columns:
+      - name: transaction_id
+        description: "Transaction identifier"
+      
+      - name: date
+        description: "Transaction date"
+        tests:
+          - not_null
+      
+      - name: quantity_sold
+        description: "Quantity sold (filtered out NULLs)"
+        tests:
+          - not_null
+      
+      - name: unit_price
+        description: "Price per unit (filtered out NULLs)"
+        tests:
+          - not_null
+      
+      - name: gross_revenue
+        description: "Revenue before discount (quantity × price)"
+        tests:
+          - not_null
+      
+      - name: discount_amount
+        description: "Dollar amount of discount applied"
+        tests:
+          - not_null
+      
+      - name: net_revenue
+        description: "Revenue after discount"
+        tests:
+          - not_null
+      
+      - name: year
+        description: "Year extracted from date"
+      
+      - name: month
+        description: "Month extracted from date (1-12)"
+      
+      - name: day_of_week
+        description: "Day of week (0=Sunday, 6=Saturday)"

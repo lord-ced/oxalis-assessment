@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: fct_daily_sales
+    description: |
+      Daily sales facts aggregated by store, region, and customer type.
+      
+      Grain: One row per date + store_id + region + customer_type combination.
+      
+      Metrics include transaction counts, quantity totals, and revenue totals
+      (gross, discount, net). This is the primary analytical table for
+      sales reporting and should be the starting point for most queries.
+      
+      Materialized as a table for query performance.
+    columns:
+      - name: date
+        description: "Transaction date"
+        tests:
+          - not_null
+      
+      - name: store_id
+        description: "Store identifier"
+        tests:
+          - not_null
+      
+      - name: region
+        description: "Geographic region"
+        tests:
+          - not_null
+      
+      - name: customer_type
+        description: "Customer segment (allows NULL for rows with no customer type)"
+      
+      - name: transaction_count
+        description: "Number of transactions"
+        tests:
+          - not_null
+      
+      - name: total_quantity
+        description: "Total quantity sold"
+        tests:
+          - not_null
+      
+      - name: gross_revenue
+        description: "Total revenue before discounts"
+        tests:
+          - not_null
+      
+      - name: total_discount
+        description: "Total discount amount"
+        tests:
+          - not_null
+      
+      - name: net_revenue
+        description: "Total revenue after discounts"
+        tests:
+          - not_null
+      
+      - name: avg_basket_size
+        description: "Average net revenue per transaction"
+        tests:
+          - not_null

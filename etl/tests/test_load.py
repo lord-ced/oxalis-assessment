@@ -12,6 +12,9 @@ import pandas as pd
 import os
 from unittest.mock import patch, MagicMock
 
+from transform import clean_column_names, COLUMN_MAPPING
+
+
 # Import functions from our load module
 from load import (
     validate_structure,
@@ -174,6 +177,42 @@ class TestDatabaseFunctions:
         """Test that verify_load function is importable and callable."""
         from load import verify_load
         assert callable(verify_load)
+
+
+
+class TestCleanColumnNames:
+    """Test suite for the clean_column_names function."""
+    
+    def test_clean_column_names_success(self):
+        """Test that messy column names are cleaned correctly."""
+        # Create DataFrame with messy source column names
+        messy_data = {
+            'date': ['2023-01-01'],
+            'store ID': ['S001'],
+            'PRODUCT_NAME': ['Widget'],
+            ' quantity': ['5'],
+            'Price': ['100.00'],
+            'customer_type': ['Regular'],
+            'Payment Method': ['Cash'],
+            'Transaction_ID': ['T001'],
+            ' discount%': ['10%'],
+            'region': ['North']
+        }
+        df_messy = pd.DataFrame(messy_data)
+        
+        # Clean the column names
+        df_clean = clean_column_names(df_messy)
+        
+        # Verify column names are now clean
+        expected_columns = [
+            'date', 'store_id', 'product_category', 'quantity_sold', 'unit_price',
+            'customer_type', 'payment_method', 'transaction_id', 'discount', 'region'
+                            ]
+        assert list(df_clean.columns) == expected_columns
+        
+        # Verify data values are unchanged
+        assert df_clean['transaction_id'].iloc[0] == 'T001'
+        assert df_clean['store_id'].iloc[0] == 'S001'
 
 
 # Test fixtures can be added here if needed in the future
