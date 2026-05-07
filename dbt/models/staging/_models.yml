@@ -34,15 +34,15 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['STORE_005', 'STORE_006', 'STORE_007']
+              values: ['STORE_005', 'STORE_006', 'STORE_007', 'STORE_008', 'STORE_009']
       
       - name: region
         description: "Geographic region (uppercase, underscores for spaces)"
         tests:
           - not_null
           - accepted_values:
-              values: ['WEST', 'EAST', 'SOUTH', 'NORTH_WEST', 'NORTH_EAST', 'SOUTH_EAST']
-      
+              values: ['WEST', 'EAST', 'SOUTH', 'NORTH', 'CENTRAL', 'NORTH_WEST', 'NORTH_EAST', 'SOUTH_EAST', 'EAST_WEST']
+            
       - name: product_category
         description: "Product name (preserved from source)"
         tests:

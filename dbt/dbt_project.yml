@@ -4,6 +4,12 @@ config-version: 2
 
 profile: 'sales_pipeline'
 
+on-run-start:
+  - "{{ log_dbt_run('dbt_run', 'started') }}"
+
+on-run-end:
+  - "{{ log_dbt_run('dbt_run', 'success') }}"
+
 model-paths: ["models"]
 seed-paths: ["seeds"]
 test-paths: ["tests"]

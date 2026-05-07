@@ -27,6 +27,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 
 from transform import clean_column_names, COLUMN_MAPPING
+from metadata_tracker import PipelineRunTracker
 
 
 # Configure structured logging
@@ -205,6 +206,15 @@ def connect_db(config: Dict[str, str]) -> Engine:
         logger.error(f"Failed to connect to database: {e}")
         raise
     
+    # Create metadata table if it doesn't exist
+    try:
+        with engine.begin() as conn:
+            with open('/app/create_metadata_table.sql', 'r') as f:
+                conn.execute(text(f.read()))
+        logger.info("Metadata table ready")
+    except Exception as e:
+        logger.warning(f"Could not create metadata table: {e}")
+    
     return engine
 
 
@@ -338,11 +348,11 @@ def main():
         # Step 3: Connect to database
         engine = connect_db(config)
         
-        # Step 4: Load data (within transaction)
-        load_to_raw(df, engine)
-        
-        # Step 5: Verify load succeeded
-        verify_load(engine, expected_rows=len(df))
+        # Step 4 & 5: Load data and verify (with metadata tracking)
+        with PipelineRunTracker(engine, 'etl_load') as tracker:
+            tracker.set_rows_processed(len(df))
+            load_to_raw(df, engine)
+            verify_load(engine, expected_rows=len(df))
         
         logger.info("Pipeline completed successfully")
         sys.exit(0)

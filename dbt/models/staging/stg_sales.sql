@@ -16,13 +16,20 @@ cleaned as (
             -- ISO format: 2023-01-15, 2023/01/17, 2023-1-31
             when date ~ '^\d{4}[-/]\d{1,2}[-/]\d{1,2}$' then 
                 to_date(date, 'YYYY-MM-DD')
-            -- Slash format with smart day/month detection
-            when date ~ '^\d{1,2}/\d{1,2}/\d{2,4}$' then 
+            -- Slash format with 2-digit year: 01/20/23, 1/16/2023
+            when date ~ '^\d{1,2}/\d{1,2}/\d{2}$' then
+                -- For 2-digit years, use YY format (00-69 = 2000-2069, 70-99 = 1970-1999)
                 case
-                    -- If first number > 12, must be DD/MM/YYYY
+                    when cast(split_part(date, '/', 1) as integer) > 12 then
+                        to_date(date, 'DD/MM/YY')
+                    else
+                        to_date(date, 'MM/DD/YY')
+                end
+            -- Slash format with 4-digit year: 1/16/2023, 01/20/2023
+            when date ~ '^\d{1,2}/\d{1,2}/\d{4}$' then 
+                case
                     when cast(split_part(date, '/', 1) as integer) > 12 then
                         to_date(date, 'DD/MM/YYYY')
-                    -- Otherwise assume MM/DD/YYYY (dayfirst=False default)
                     else
                         to_date(date, 'MM/DD/YYYY')
                 end
